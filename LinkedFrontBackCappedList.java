@@ -45,6 +45,23 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	//Ben's Code Ending Here.
 	
 	@Override
+	public T getEntry(int givenPosition) {
+		T[] temp = (T[]) new Object[numberOfElements];
+		T item = null;
+		Node current = head;
+		int i = 0;
+		if (!isEmpty() && givenPosition< temp.length && givenPosition>1) {
+			while (current != null) {
+				temp[i] = current.data;
+				i++;
+				current = current.next;
+			}
+			item = temp[givenPosition];
+		}
+		return item;
+	}
+	
+	@Override
 	public void clear() {
 		head = null;
 		numberOfElements = 0;
