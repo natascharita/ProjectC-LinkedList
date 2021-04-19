@@ -15,6 +15,10 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		if (isFull()) {
 			return false;
 		}
+		if (isEmpty()) {
+		    head.data = element;
+		    tail = head;
+        }
 		else {
 			Node newNode = new Node(element);
 			newNode.next = head;
@@ -27,6 +31,10 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		if (isFull()) {
 			return false;
 		}
+        if (isEmpty()) {
+            tail.data = element;
+            head = tail;
+        }
 		else {
 			Node newNode = new Node(element);
 			tail.next = newNode;
