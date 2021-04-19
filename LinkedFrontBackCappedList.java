@@ -37,6 +37,12 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	//Ben's Code Ending Here.
 	
 	@Override
+	public void clear() {
+		head = null;
+		numberOfElements = 0;
+	}
+	
+	@Override
 	public int size() {
 		return numberOfElements;
 	}
@@ -53,16 +59,61 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	@Override
 	public boolean isFull() {
 		boolean result = true;
+		int count=0;
+		Node current = head;
 		if(isEmpty()){
 			result = false;
 		}
 		else{
-			if(list.length == numberOfElements){
+			while(current!=null){
+				count++;
+				current = current.next;
+			}
+			if(count<maxSize){
 				result = false;
 			}
 		}
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		T[] temp = (T[]) new Object[numberOfElements];
+		Node current = head;
+		int i = 0;
+		if (!isEmpty()) {
+			while (current != null) {
+				temp[i] = current.data;
+				i++;
+				current = current.next;
+			}
+			if(temp.length == numberOfElements){
+				return Arrays.toString(temp) +
+					" size=" + numberOfElements +
+					" capacity=" + maxSize +
+					" head= " + temp[0].toString()+
+					" tail= " + temp[0].toString();
+			}
+			else{
+				return Arrays.toString(temp) +
+						" size=" + numberOfElements +
+						" capacity=" + maxSize +
+						" head= " + temp[0].toString()+
+						" tail= " + temp[numberOfElements].toString();
+			}
+		} else {
+
+			return Arrays.toString(temp) +
+					", size=" + numberOfElements +
+					", capacity=" + maxSize
+					;
+
+		}
+	}
+	
+	
+	
+	
 	public class Node {
 		public T data; 
 		public Node next; 
