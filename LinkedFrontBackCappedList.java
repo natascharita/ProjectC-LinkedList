@@ -139,6 +139,18 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return removeBack(head);
 		}
 	}
+	
+	public T removeBack(Node current) {
+		if (current.next.equals(tail)) {
+			numberOfElements --;
+			Node temp = tail;
+			tail = current;
+			return temp.getData();
+		} 
+		else {
+			return removeBack(current.next);
+		}
+	}
 
 	@Override
 	public void clear() {
