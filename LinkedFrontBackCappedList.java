@@ -1,9 +1,41 @@
 public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterface<T> {
 
 	private Node head, tail;
-   
-   // YOUR CLASS HERE! TEST
+	
+	//Ben's code. Starting Here.
+	private int maxSize;
+	private int numberOfElements;
 
+	public LinkedFrontBackCappedList(int capacity){
+		this.maxSize = capacity;
+		numberOfElements = 0;
+	}
+
+	public boolean addFront(T element) {
+		if (isFull()) {
+			return false;
+		}
+		else {
+			Node newNode = new Node(element);
+			newNode.next = head;
+			head = newNode;
+			numberOfElements++;
+		}
+	}
+
+	public boolean addBack(T element) {
+		if (isFull()) {
+			return false;
+		}
+		else {
+			Node newNode = new Node(element);
+			tail.next = newNode;
+			tail = newNode;
+			numberOfElements++;
+		}
+	}
+	//Ben's Code Ending Here.
+	
 	@Override
 	public int size() {
 		return numberOfElements;
