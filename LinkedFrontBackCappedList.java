@@ -1,10 +1,8 @@
-package ProjectCLinkedListFiles;
-
-import java.util.Arrays;
-
 public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterface<T> {
 
 	private Node head, tail;
+	
+	//Ben's code. Starting Here.
 	private int maxSize;
 	private int numberOfElements;
 
@@ -13,168 +11,101 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		numberOfElements = 0;
 	}
 
-	public int compareTo(LinkedFrontBackCappedList<T> listB) {
-		return 0;
-	}
-
-	// YOUR CLASS HERE!
-
-	public class Node {
-		public T data;
-		public Node next;
-
-		private Node(T dataPortion) {
-			data = dataPortion;
-			next = null;
-		}
-
-		private Node(T dataPortion, Node nextNode) {
-			data = dataPortion;
-			next = nextNode;
-		}
-
-		private T getData() {
-			return data;
-		}
-
-		private void setData(T newData) {
-			data = newData;
-		}
-
-		private Node getNextNode() {
-			return next;
-		}
-
-		private void setNextNode(Node nextNode) {
-			next = nextNode;
-		}
-
-
-
-	}
-
-
-	@Override
 	public boolean addFront(T element) {
 		if (isFull()) {
 			return false;
 		}
+		if (isEmpty()) {
+		    head.data = element;
+		    tail = head;
+        }
 		else {
-			if(!isEmpty()){
-				Node newNode = new Node(element);
-				newNode.next = head;
-				head = newNode;
-				numberOfElements++;
-			}
-			else{
-				Node newNode = new Node(element);
-				head = newNode;
-				numberOfElements++;
-			}
+			Node newNode = new Node(element);
+			newNode.next = head;
+			head = newNode;
+			numberOfElements++;
 		}
-		return true;
 	}
 
-	@Override
 	public boolean addBack(T element) {
 		if (isFull()) {
 			return false;
 		}
+        if (isEmpty()) {
+            tail.data = element;
+            head = tail;
+        }
 		else {
-			if(!isEmpty()){
-				numberOfElements++;
-				Node newNode = new Node(element);
-				tail.next = newNode;
-				tail = newNode;
-			}
-			else{
-				Node newNode = new Node(element);
-				head = newNode;
-				tail = head;
-				numberOfElements++;
-			}
+			Node newNode = new Node(element);
+			tail.next = newNode;
+			tail = newNode;
+			numberOfElements++;
 		}
-		return true;
 	}
-
+	//Ben's Code Ending Here.
 	@Override
 	public T removeFront() {
-		return null;
+		if (head == null) {
+			return null;
+		} else if (head.equals(tail)) {
+			numberOfElements--;
+			head = null;
+			tail = null;
+		} else {
+			numberOfElements --;
+			Node temp = head;
+			head = head.next;
+			return temp.getData();
+		}
 	}
 
 	@Override
 	public T removeBack() {
-		return null;
+		if (tail == null) {
+			return null;
+		} else if (head.equals(tail)) {
+			numberOfElements--;
+			head = null;
+			tail = null;
+			return head.getData();
+		} else {
+			return removeBack(head);
+		}
 	}
 
+	public T removeBack(Node current) {
+		if (current.next.equals(tail)) {
+			numberOfElements --;
+			Node temp = tail;
+			tail = current;
+			return temp.getData();
+		} else {
+			return removeBack(current.next);
+		}
+	}
+	@Override
+	public T getEntry(int givenPosition) {
+		T[] temp = (T[]) new Object[numberOfElements];
+		T item = null;
+		Node current = head;
+		int i = 0;
+		if (!isEmpty() && givenPosition< temp.length && givenPosition>1) {
+			while (current != null) {
+				temp[i] = current.data;
+				i++;
+				current = current.next;
+			}
+			item = temp[givenPosition];
+		}
+		return item;
+	}
+	
 	@Override
 	public void clear() {
 		head = null;
 		numberOfElements = 0;
 	}
-
-	@Override
-	public T getEntry(int givenPosition) {
-		return null;
-	}
-
-	@Override
-	public int indexOf(T anEntry) {
-		int index = 0;
-		Node current = head;
-		if(contains(anEntry)){
-			while (current != null) {
-				if(current.data.equals(anEntry)){
-					return index;
-				}
-				index++;
-				current = current.next;
-			}
-		}
-		else{
-			index = -1;
-		}
-		return index;
-	}
-
-	@Override
-	public int lastIndexOf(T anEntry) {
-		int index = 0;
-		int temp = 0;
-		Node current = head;
-		T[] tempArray = (T[]) new Object[numberOfElements];
-		while(current!=null){
-			tempArray[index] = current.data;
-			index++;
-			current = current.next;
-		}
-		if(contains(anEntry)){
-			for(index = 0; index < numberOfElements ; index++){
-				if(tempArray[index].equals(anEntry)){
-					temp = index;
-				}
-			}
-			index = temp;
-		}
-		else{
-			index = -1;
-		}
-		return index;
-	}
-
-	@Override
-	public boolean contains(T anEntry) {
-		boolean result = false;
-		Node current = head;
-		while(current!=null){
-			if(current.data.equals(anEntry)){
-				result = true;
-			}
-			current = current.next;
-		}
-		return result;
-	}
-
+	
 	@Override
 	public int size() {
 		return numberOfElements;
@@ -220,24 +151,61 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 				i++;
 				current = current.next;
 			}
-
-			return Arrays.toString(temp) +
+			if(temp.length == numberOfElements){
+				return Arrays.toString(temp) +
 					" size=" + numberOfElements +
-					" capacity=" + maxSize
-						+
+					" capacity=" + maxSize +
+					" head= " + temp[0].toString()+
+					" tail= " + temp[0].toString();
+			}
+			else{
+				return Arrays.toString(temp) +
+						" size=" + numberOfElements +
+						" capacity=" + maxSize +
 						" head= " + temp[0].toString()+
-						" tail= " + temp[numberOfElements-1].toString()
-					;
-		}
-		else {
+						" tail= " + temp[numberOfElements].toString();
+			}
+		} else {
+
 			return Arrays.toString(temp) +
 					", size=" + numberOfElements +
 					", capacity=" + maxSize
 					;
 
 		}
-
 	}
+	
+	
+	
+	
+	public class Node {
+		public T data; 
+		public Node next; 
 
+		private Node(T dataPortion) {
+			data = dataPortion;
+			next = null;
+		}
+
+		private Node(T dataPortion, Node nextNode) {
+			data = dataPortion;
+			next = nextNode;
+		}
+
+		private T getData() {
+			return data;
+		}
+
+		private void setData(T newData) {
+			data = newData;
+		}
+
+		private Node getNextNode() {
+			return next;
+		}
+
+		private void setNextNode(Node nextNode) {
+			next = nextNode;
+		} 
+	} 
 }
-
