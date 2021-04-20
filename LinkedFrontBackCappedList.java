@@ -97,51 +97,91 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		return true;
 	}
 
+	//replace methods
 	@Override
 	public T removeFront() {
-		if (head == null) {
-			return null;
-		} 
-		else if (head.equals(tail)) {
-			numberOfElements--;
-			head = null;
-			tail = null;
-		} 
-		else {
-			numberOfElements --;
-			Node temp = head;
+		T removeItem = null;
+		if(!isEmpty()){
+			Node current = head;
+			removeItem = head.data;
 			head = head.next;
-			return temp.getData();
+			while(current.next!=null){
+				current = current.next;
+			}
+			tail = current;
+			numberOfElements --;
 		}
+
+		return removeItem;
 	}
 
 	@Override
 	public T removeBack() {
-		if (tail == null) {
-			return null;
-		} 
-		else if (head.equals(tail)) {
-			numberOfElements--;
-			head = null;
-			tail = null;
-			return head.getData();
-		} 
-		else {
-			return removeBack(head);
+		T removeItem = null;
+		if(!isEmpty()){
+			if(head.next == null){
+				removeItem = head.data;
+				clear();
+			}
+			else{
+				Node current = head;
+				removeItem = tail.data;
+				while(current.next!=tail){
+					current = current.next;
+				}
+				current.next = null;
+				tail = current;
+				numberOfElements--;
+			}
 		}
+		return removeItem;
 	}
 	
-	public T removeBack(Node current) {
-		if (current.next.equals(tail)) {
-			numberOfElements --;
-			Node temp = tail;
-			tail = current;
-			return temp.getData();
-		} 
-		else {
-			return removeBack(current.next);
-		}
-	}
+// 	@Override
+// 	public T removeFront() {
+// 		if (head == null) {
+// 			return null;
+// 		} 
+// 		else if (head.equals(tail)) {
+// 			numberOfElements--;
+// 			head = null;
+// 			tail = null;
+// 		} 
+// 		else {
+// 			numberOfElements --;
+// 			Node temp = head;
+// 			head = head.next;
+// 			return temp.getData();
+// 		}
+// 	}
+
+// 	@Override
+// 	public T removeBack() {
+// 		if (tail == null) {
+// 			return null;
+// 		} 
+// 		else if (head.equals(tail)) {
+// 			numberOfElements--;
+// 			head = null;
+// 			tail = null;
+// 			return head.getData();
+// 		} 
+// 		else {
+// 			return removeBack(head);
+// 		}
+// 	}
+	
+// 	public T removeBack(Node current) {
+// 		if (current.next.equals(tail)) {
+// 			numberOfElements --;
+// 			Node temp = tail;
+// 			tail = current;
+// 			return temp.getData();
+// 		} 
+// 		else {
+// 			return removeBack(current.next);
+// 		}
+// 	}
 
 	@Override
 	public void clear() {
