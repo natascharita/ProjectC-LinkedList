@@ -155,7 +155,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		T item = null;
 		Node current = head;
 		int i = 0;
-		if (!isEmpty() && givenPosition< temp.length && givenPosition>1) {
+		if (!isEmpty() && givenPosition< temp.length && givenPosition>=0) {
 			while (current != null) {
 				temp[i] = current.data;
 				i++;
@@ -279,7 +279,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 					;
 		}
 		else {
-			return Arrays.toString(temp) +
+			return "[]" +
 					", size=" + numberOfElements +
 					", capacity=" + maxSize
 					;
