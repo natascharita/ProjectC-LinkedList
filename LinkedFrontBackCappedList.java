@@ -1,6 +1,5 @@
-package ProjectC;
 
-
+import java.util.Arrays;
 public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterface<T> {
 
 	private Node head, tail;
@@ -15,8 +14,6 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public int compareTo(LinkedFrontBackCappedList<T> listB) {
 		return 0;
 	}
-
-	// YOUR CLASS HERE!
 
 	public class Node {
 		public T data;
@@ -47,9 +44,6 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		private void setNextNode(Node nextNode) {
 			next = nextNode;
 		}
-
-
-
 	}
 
 
@@ -73,7 +67,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean addBack(T element) {
 		Node newNode = new Node(element);
@@ -136,52 +130,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 		}
 		return removeItem;
 	}
-	
-// 	@Override
-// 	public T removeFront() {
-// 		if (head == null) {
-// 			return null;
-// 		} 
-// 		else if (head.equals(tail)) {
-// 			numberOfElements--;
-// 			head = null;
-// 			tail = null;
-// 		} 
-// 		else {
-// 			numberOfElements --;
-// 			Node temp = head;
-// 			head = head.next;
-// 			return temp.getData();
-// 		}
-// 	}
 
-// 	@Override
-// 	public T removeBack() {
-// 		if (tail == null) {
-// 			return null;
-// 		} 
-// 		else if (head.equals(tail)) {
-// 			numberOfElements--;
-// 			head = null;
-// 			tail = null;
-// 			return head.getData();
-// 		} 
-// 		else {
-// 			return removeBack(head);
-// 		}
-// 	}
-	
-// 	public T removeBack(Node current) {
-// 		if (current.next.equals(tail)) {
-// 			numberOfElements --;
-// 			Node temp = tail;
-// 			tail = current;
-// 			return temp.getData();
-// 		} 
-// 		else {
-// 			return removeBack(current.next);
-// 		}
-// 	}
 
 	@Override
 	public void clear() {
@@ -301,22 +250,22 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public String toString() {
 		T[] temp = (T[]) new Object[numberOfElements];
 		Node current = head;
-		String s = new String();
+		String printedString = new String();
 		int i = 0;
 		if (!isEmpty()) {
 			while (current != null) {
 				temp[i] = current.data;
-				s += temp[i] + " ";
+				printedString += temp[i] + ", ";
 				i++;
 				current = current.next;
 			}
-			return 	"[ " + s + "]" +
+			StringBuilder truncatedString = new StringBuilder("[" + printedString + "]");
+			return 	truncatedString.delete(truncatedString.length()-3, truncatedString.length()-1) +
 					" size=" + numberOfElements +
 					" capacity=" + maxSize
-						+
-						" head= " + temp[0].toString() +
-						" tail= " + temp[numberOfElements-1]
-					;
+					+
+					" head= " + temp[0].toString() +
+					" tail= " + temp[numberOfElements-1];
 		}
 		else {
 			return "[]" +
@@ -326,6 +275,4 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 
 		}
 	}
-
 }
-
