@@ -261,32 +261,30 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 	public String toString() {
 		T[] temp = (T[]) new Object[numberOfElements];
 		Node current = head;
+		String s = new String();
 		int i = 0;
-		String s = null;
 		if (!isEmpty()) {
 			while (current != null) {
 				temp[i] = current.data;
-				s += temp[i] + "," +" ";
+				s += temp[i] + " ";
 				i++;
 				current = current.next;
 			}
-
-			return "[" + s + "]" +
+			return 	"[ " + s + "]" +
 					" size=" + numberOfElements +
 					" capacity=" + maxSize
-//						+
-//						" head= " + temp[0].toString()+
-//						" tail= " + temp[numberOfElements-1].toString()
+						+
+						" head= " + temp[0].toString() +
+						" tail= " + temp[numberOfElements-1]
 					;
 		}
 		else {
-			return "[]" +
+			return Arrays.toString(temp) +
 					", size=" + numberOfElements +
 					", capacity=" + maxSize
 					;
 
 		}
-
 	}
 
 }
