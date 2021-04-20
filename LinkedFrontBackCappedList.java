@@ -73,7 +73,7 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return true;
 		}
 	}
-
+	
 	@Override
 	public boolean addBack(T element) {
 		Node newNode = new Node(element);
@@ -81,27 +81,18 @@ public class LinkedFrontBackCappedList<T> implements FrontBackCappedListInterfac
 			return false;
 		}
 		else {
-//			if(!isEmpty()){
-//				Node newNode = new Node(element);
-//				tail.next = newNode;
-//				tail = newNode;
-//				numberOfElements++;
-//			}
-//			else{
-//				Node newNode = new Node(element);
-//				head = newNode;
-//				tail = head;
-//				numberOfElements++;
-//			}
+			numberOfElements++;
 			if(isEmpty()){
 				head = newNode;
 			}
 			else{
-				tail.next = newNode;
+				Node current = head;
+				while(current.next!=null){
+					current = current.next;
+				}
+				current.next = newNode;
 			}
 			tail = newNode;
-			numberOfElements++;
-
 		}
 		return true;
 	}
